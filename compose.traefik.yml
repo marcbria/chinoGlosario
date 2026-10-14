@@ -7,7 +7,7 @@ services:
       - "traefik.http.routers.chinogloss-secure.tls=true"
       - "traefik.http.routers.chinogloss-secure.tls.certresolver=leresolver"
       - "traefik.http.middlewares.chinogloss-strip.stripprefix.prefixes=${BASE_PATH_PREFIX}"
-      - "traefik.http.routers.chinogloss-secure.middlewares=chinotrans-strip"
+      - "traefik.http.routers.chinogloss-secure.middlewares=chinogloss-strip"
 
     # Despublica los puertos heredados de compose.yml.
     # Sintaxis `!reset` de Docker Compose v2 (>= 2.24).
