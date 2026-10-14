@@ -1,0 +1,12 @@
+services:
+  app:
+    build: .
+    container_name: chinogloss
+    env_file:
+      - .env
+    ports:
+      - "8080:80"
+    volumes:
+      - ./public:/srv/public:ro
+      - ./content:/srv/content:ro
+    restart: unless-stopped
