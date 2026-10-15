@@ -111,7 +111,8 @@ async function loadCSV() {
   });
 
   state.displayHeaders = [...state.headers];
-  state.sort = { column: state.headers[0], direction: 'desc' };
+  /* Orden por defecto: primera columna del CSV (Pinyin), ascendente. */
+  state.sort = { column: state.headers[0], direction: 'asc' };
 }
 
 /* ---------------- Filtres ---------------- */
