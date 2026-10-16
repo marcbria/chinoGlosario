@@ -21,6 +21,10 @@
   --content-padding-x: 24px;
   --content-padding-x-md: 16px;
   --content-padding-x-sm: 12px;
+
+  /* Ancho mínimo por columna en móvil: evita que cabeceras como
+     "Denominaciones desestimadas" queden escritas en vertical. */
+  --table-col-min-width-mobile: 100px;
 }
 
 * { box-sizing: border-box; }
@@ -289,6 +293,7 @@ tbody tr:hover td.sorted-col {
   margin-right: 0.4rem;
 }
 
+/* ─── Responsive ─── */
 @media (max-width: 768px) {
 
   .page-header .container,
@@ -331,23 +336,41 @@ tbody tr:hover td.sorted-col {
     flex: 1 1 100%;
   }
 
+  /* Scroll horizontal cuando la tabla excede el viewport
+     (por debajo de 7 × 100 px de ancho mínimo). */
   .table-wrapper {
-    overflow: visible;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
+  /* table-layout: auto + min-width en celdas: las columnas
+     anchas crecen con el contenido, las cortas nunca bajan
+     de --table-col-min-width-mobile. */
   table {
     table-layout: auto;
-    width: auto;
-    min-width: 100%;
+    width: 100%;
+    min-width: calc(7 * var(--table-col-min-width-mobile));
   }
 
   thead th {
     padding: 0.5rem 0.4rem;
     font-size: 0.85rem;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    min-width: var(--table-col-min-width-mobile);
+  }
+
+  tbody td {
+    padding: 0.4rem 0.35rem;
+    font-size: 0.85rem;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    min-width: var(--table-col-min-width-mobile);
   }
 
   #filter-row th {
     padding: 0.2rem 0.25rem;
+    min-width: var(--table-col-min-width-mobile);
   }
 
   #filter-row input[type="text"] {
@@ -356,11 +379,11 @@ tbody tr:hover td.sorted-col {
             appearance: none !important;
 
     display: block !important;
-    min-width: 80px !important;
+    min-width: 0 !important;
     width: 100% !important;
-    max-width: var(--filter-input-max-width-mobile) !important;
+    max-width: none !important;
     margin: 0 !important;
-    padding: 0 0.35rem !important;
+    padding: 0 0.3rem !important;
     font-size: 0.78rem !important;
     line-height: calc(var(--filter-input-height-mobile) - 2px) !important;
     height: var(--filter-input-height-mobile) !important;
@@ -368,12 +391,6 @@ tbody tr:hover td.sorted-col {
     max-height: var(--filter-input-height-mobile) !important;
     border-radius: 0 !important;
     box-sizing: border-box !important;
-  }
-
-  tbody td {
-    padding: 0.4rem 0.35rem;
-    font-size: 0.85rem;
-    white-space: nowrap;
   }
 }
 
@@ -398,17 +415,22 @@ tbody tr:hover td.sorted-col {
   }
 
   #filter-row input[type="text"] {
-    min-width: 70px !important;
-    max-width: var(--filter-input-max-width-mobile-sm) !important;
+    min-width: 0 !important;
+    max-width: none !important;
     height: var(--filter-input-height-mobile) !important;
     min-height: var(--filter-input-height-mobile) !important;
     max-height: var(--filter-input-height-mobile) !important;
     line-height: calc(var(--filter-input-height-mobile) - 2px) !important;
-    font-size: 0.75rem !important;
+    font-size: 0.72rem !important;
   }
 
   tbody td {
-    padding: 0.35rem 0.3rem;
-    font-size: 0.8rem;
+    padding: 0.35rem 0.25rem;
+    font-size: 0.78rem;
+  }
+
+  thead th {
+    padding: 0.45rem 0.25rem;
+    font-size: 0.78rem;
   }
 }
